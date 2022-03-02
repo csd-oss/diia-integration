@@ -57,7 +57,7 @@ class Diia_Connector():
         response = requests.request("POST", f"{self.endpoint}api/v2/acquirers/branch", json=payload, headers=headers)
         print(response.text)
         self.last_created_branch_id = response.json()['_id']
-        
+        self.branch_id = response.json()['_id']
         return response.json()['_id']
     
     def get_branches_list(self):
