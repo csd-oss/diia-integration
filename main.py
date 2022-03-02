@@ -43,7 +43,9 @@ class Diia_Connector():
             "house": house,
             "deliveryTypes": ["api"],
             "offerRequestType": "dynamic",
-            "scopes": {"identification": []}
+            "scopes": {
+		        "identification": ["anonymous","faced"]
+	        }
         }
 
         headers = {
@@ -56,6 +58,19 @@ class Diia_Connector():
         self.last_created_branch_id = response.json()['_id']
         
         return response.json()['_id']
+    
+    def get_branches_list(self):
+
+        querystring = {"skip":"0","limit":"10"}
+
+        response = requests.request("GET", f"{self.endpoint}api/v1/acquirers/branches", headers=headers, params=querystring)
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.token}"
+        }
+        
+        return response.json()
 
     def create_verification_offer(self, offering_name, scopes, branch_id, return_link = None,):
         """
