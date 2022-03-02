@@ -72,6 +72,20 @@ class Diia_Connector():
         
         return response.json()
 
+    def delete_branch(self, branch_id):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.token}"
+        }
+
+        response = requests.request("DELETE", f"{self.endpoint}api/v2/acquirers/branch/{branch_id}", headers=headers)
+
+        if response.status_code == 204:
+            return True
+        else:
+            return False
+
+
     def create_verification_offer(self, offering_name, scopes, branch_id, return_link = None,):
         """
         Class for creation of sharing offer for specific branch 
