@@ -23,6 +23,7 @@ class Diia_Connector():
         self.endpoint = endpoint
         self.acquirer_token = acquirer_token
         self.refresh_rate = refresh_rate
+
         self.generate_token()
 
     def create_branch(self, custom_full_name, custom_full_address, name, street, house): 
@@ -63,12 +64,12 @@ class Diia_Connector():
 
         querystring = {"skip":"0","limit":"10"}
 
-        response = requests.request("GET", f"{self.endpoint}api/v1/acquirers/branches", headers=headers, params=querystring)
-        
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.token}"
-        }
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {self.token}"
+                }
+
+        response = requests.request("GET", f"{self.endpoint}api/v1/acquirers/branches", headers=headers, params=querystring)
         
         return response.json()
 
