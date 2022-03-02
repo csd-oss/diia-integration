@@ -91,10 +91,11 @@ class Diia_Connector():
 
         return response.json()['_id']
 
-    def create_deeplink(self, branch_id, offer_id, user_id):
+    def create_deeplink(self, branch_id, return_deeplink, user_id):
         payload = {
-            "offerId": offer_id,
-            "requestId": user_id
+            "branchId":branch_id ,
+            "returnDeeplink": return_deeplink,
+            "id": user_id
         }
         
         headers = {
@@ -102,6 +103,6 @@ class Diia_Connector():
             "Authorization": f"Bearer {self.token}"
         }
 
-        response = requests.request("POST", f"{self.endpoint}api/v2/acquirers/branch/{branch_id}/offer-request/dynamic" , json=payload, headers=headers)
+        response = requests.request("POST", f"{self.endpoint}api/v1/acquirers/identification" , json=payload, headers=headers)
         print(response.text)
         return response.json()['deeplink']
