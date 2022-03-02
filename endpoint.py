@@ -7,6 +7,9 @@ app = FastAPI()
 
 @app.post("/diia-receiver")
 async def diia_reciver(data):
+    """
+    Change this function accordingly to the way you want to proccess data from Diia.
+    """
     print(data)
     return { "success": True }
 
@@ -19,10 +22,12 @@ async def link_generator(
     data:link_generator,
     username: str = Depends(get_current_username),
     ):
-
+    """
+    Use this endpoint to get generated Diia deeplink for identification
+    """
     all_branches = diia.get_branches_list()
     diia.branch_id = all_branches['branches'][0]['_id']
-    
+
     deeplink = diia.create_deeplink(
         branch_id=diia.branch_id,
         return_deeplink=data.return_link,
