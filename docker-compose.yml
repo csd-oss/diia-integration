@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+services:
+  app:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - '80:80'
+    environment:
+      - 'AUTH_TYPE='
+    networks:
+      - app-tier
